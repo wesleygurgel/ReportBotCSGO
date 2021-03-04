@@ -1,6 +1,7 @@
 import tkinter as tk
 import time
 from selenium import webdriver
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -105,9 +106,13 @@ class ReportBot:
         self.root.mainloop()
 
     def iniciar_selenium(self):
-        self.driver = webdriver.Chrome(executable_path='chromedriver.exe')
+        options = webdriver.ChromeOptions()
+        options.add_argument('start-maximized')
+        options.add_argument('disable-infobars')
+        options.add_argument('--disable-extensions')
+
+        self.driver = webdriver.Chrome(chrome_options=options, executable_path='chromedriver.exe')
         self.driver.get('https://extremereportbot.com/home/')
-        self.driver.maximize_window()
         self.pegar_jogadores()
 
         continuar = True
@@ -122,6 +127,7 @@ class ReportBot:
                     EC.element_to_be_clickable((By.XPATH, '//label[@for="csgo"]'))).click()
                 WebDriverWait(self.driver, 10).until(
                     EC.element_to_be_clickable((By.XPATH, '//label[@for="community"]'))).click()
+
                 self.marcar_checkboxs(self.driver)
                 WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.ID, 'report_confirm'))).click()
                 time.sleep(40)
@@ -130,7 +136,8 @@ class ReportBot:
                 print(f'Quantidade de vezes reportados: {contador / len(self.jogadores)}')
 
     def marcar_checkboxs(self, driver):
-        driver.find_element(By.XPATH, f'//label[@for="{self.community.get()}"]').click()
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, f'//label[@for="{self.community.get()}"]'))).click()
 
         fors_label = [46, 48, 43, 47, 42]
         new_list = []

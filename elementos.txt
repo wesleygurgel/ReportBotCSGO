@@ -7,7 +7,26 @@ https://steamcommunity.com/profiles/76561199106754694/
 https://steamcommunity.com/profiles/76561199100307031/
 https://steamcommunity.com/profiles/76561199093761646/
 
-https://steamcommunity.com/profiles/76561199006295402/
+
 https://steamcommunity.com/profiles/76561199103016636/
 https://steamcommunity.com/profiles/76561199112398128/
+https://steamcommunity.com/profiles/76561199006295402/
 
+
+https://steamcommunity.com/profiles/76561199083921694/
+https://steamcommunity.com/profiles/76561199136346930/
+https://steamcommunity.com/id/dennisfreak10/
+
+
+ element = self.driver.find_element(By.ID, 'finduser')
+                self.driver.implicitly_wait(10)
+                ActionChains(self.driver).move_to_element(element).click(element).perform()
+
+                element = self.driver.find_element(By.ID, 'user_confirm')
+                ActionChains(self.driver).move_to_element(element).click(element).perform()
+
+                element = self.driver.find_element(By.XPATH, '//label[@for="csgo"]')
+                ActionChains(self.driver).move_to_element(element).click(element).perform()
+
+                element = self.driver.find_element(By.XPATH, '//label[@for="community"]')
+                ActionChains(self.driver).move_to_element(element).click(element).perform()
