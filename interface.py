@@ -23,7 +23,8 @@ class ReportBot:
         self.lista = []
         self.root.title("Report CSGO Players")
 
-        self.frame_id_jogadores.grid(row=0, column=0, sticky=tk.E + tk.N + tk.S + tk.W, ipadx=5, ipady=5, padx=5, pady=5)
+        self.frame_id_jogadores.grid(row=0, column=0, sticky=tk.E + tk.N + tk.S + tk.W, ipadx=5, ipady=5, padx=5,
+                                     pady=5)
 
         label_explicacao = tk.Label(self.frame_id_jogadores, text="Abaixo coloque os perfis que deseja denunciar:")
         label_explicacao.config(font=(20))
@@ -111,22 +112,25 @@ class ReportBot:
         contador = 0
         while continuar:
             for steamplayer in self.jogadores:
-                WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.ID, 'steamuser'))).send_keys(steamplayer)
+                WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.ID, 'steamuser'))).send_keys(
+                    steamplayer)
                 WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.ID, 'finduser'))).click()
                 WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.ID, 'user_confirm'))).click()
-                WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//label[@for="csgo"]'))).click()
-                WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//label[@for="community"]'))).click()
+                WebDriverWait(self.driver, 10).until(
+                    EC.element_to_be_clickable((By.XPATH, '//label[@for="csgo"]'))).click()
+                WebDriverWait(self.driver, 10).until(
+                    EC.element_to_be_clickable((By.XPATH, '//label[@for="community"]'))).click()
                 self.marcar_checkboxs(self.driver)
                 WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.ID, 'report_confirm'))).click()
                 time.sleep(40)
                 self.driver.refresh()
-                contador+=1
-                print(f'Quantidade de vezes reportados: {contador/len(self.jogadores)}')
+                contador += 1
+                print(f'Quantidade de vezes reportados: {contador / len(self.jogadores)}')
 
     def marcar_checkboxs(self, driver):
         driver.find_element(By.XPATH, f'//label[@for="{self.community.get()}"]').click()
 
-        fors_label = [46,48,43,47,42]
+        fors_label = [46, 48, 43, 47, 42]
         new_list = []
         for elemento in self.lista:
             new_list.append(elemento.get())
@@ -136,14 +140,14 @@ class ReportBot:
 
         for key, value in dictconjugado.items():
             if value:
-                driver.find_element(By.XPATH, f'//label[@for="{key}"]').click()
-
-
+                WebDriverWait(self.driver, 10).until(
+                    EC.element_to_be_clickable((By.XPATH, f'//label[@for="{key}"]'))).click()
 
     def pegar_jogadores(self):
         for perfil in [self.report1_entry.get(), self.report2_entry.get(), self.report3_entry.get()]:
             if perfil != '':
                 self.jogadores.append(perfil)
+
 
 meubot = ReportBot()
 meubot.criar_interface()
