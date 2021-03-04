@@ -21,6 +21,8 @@ class ReportBot:
                                                  tk.BooleanVar(), tk.BooleanVar()
         self.jogadores = []
         self.lista = []
+
+    def criar_interface(self):
         self.root.title("Report CSGO Players")
 
         self.frame_id_jogadores.grid(row=0, column=0, sticky=tk.E + tk.N + tk.S + tk.W, ipadx=5, ipady=5, padx=5,
