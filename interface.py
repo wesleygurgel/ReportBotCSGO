@@ -1,8 +1,7 @@
 import tkinter as tk
 import time
 from selenium import webdriver
-from selenium.webdriver import ActionChains
-from selenium.webdriver.support.ui import Select
+import ctypes
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -108,8 +107,6 @@ class ReportBot:
     def iniciar_selenium(self):
         options = webdriver.ChromeOptions()
         options.add_argument('start-maximized')
-        options.add_argument('disable-infobars')
-        options.add_argument('--disable-extensions')
 
         self.driver = webdriver.Chrome(chrome_options=options, executable_path='chromedriver.exe')
         self.driver.get('https://extremereportbot.com/home/')
@@ -135,9 +132,23 @@ class ReportBot:
                     self.driver.refresh()
                     contador += 1
                     print(f'Quantidade de vezes reportados: {contador / len(self.jogadores)}')
-                except (RuntimeError, TypeError, NameError) as err:
-                    print(err)
-                    self.driver.refresh()
+
+                except:
+                    if self.driver.find_element(By.ID, 'error_content'):
+                        self.jogadores.remove(steamplayer)
+                        print(self.jogadores)
+                        if not self.jogadores:
+                            print(f'{self.jogadores} vazio')
+                            ctypes.windll.user32.MessageBoxW(0,
+                                                             "Players Reportados com Sucesso\nOs 3 perfis atingiram "
+                                                             "seu "
+                                                             "limite de report, aguarde 12h para reportar novamente.",
+                                                             "REPORT BOT", 1)
+                            continuar = False
+                            break
+                        print('voudar o refresh')
+                        self.driver.refresh()
+                    continue
 
     def marcar_checkboxs(self):
         WebDriverWait(self.driver, 10).until(
