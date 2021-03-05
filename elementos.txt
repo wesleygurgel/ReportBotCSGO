@@ -17,6 +17,24 @@ https://steamcommunity.com/profiles/76561199083921694/
 https://steamcommunity.com/profiles/76561199136346930/
 https://steamcommunity.com/id/dennisfreak10/
 
+-------------------------------------------------------------
+https://steamcommunity.com/profiles/76561198144514160/
+https://steamcommunity.com/profiles/76561198815890252/
+https://steamcommunity.com/profiles/76561199029743180/
+
+--------------------------------------------------------------
+https://steamcommunity.com/id/sedatxr/
+https://steamcommunity.com/profiles/76561199036191212/
+https://steamcommunity.com/id/numenius/
+
+
+
+
+
+hi guys, i'm developing a program that automatically reports more than one profile. However, you have placed the div's that are hidden clickable and sometimes selenium does not find the element.
+I found a solution for this, but I am disabling infobars and extensions, so I get the error from ADBLOCKERS
+
+
 
  element = self.driver.find_element(By.ID, 'finduser')
                 self.driver.implicitly_wait(10)
