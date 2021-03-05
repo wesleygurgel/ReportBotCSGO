@@ -129,13 +129,14 @@ class ReportBot:
                     WebDriverWait(self.driver, 10).until(
                         EC.element_to_be_clickable((By.XPATH, '//label[@for="community"]'))).click()
 
-                    self.marcar_checkboxs(self.driver)
+                    self.marcar_checkboxs()
                     WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.ID, 'report_confirm'))).click()
                     time.sleep(40)
                     self.driver.refresh()
                     contador += 1
                     print(f'Quantidade de vezes reportados: {contador / len(self.jogadores)}')
-                except:
+                except (RuntimeError, TypeError, NameError) as err:
+                    print(err)
                     self.driver.refresh()
 
     def marcar_checkboxs(self):
